@@ -42,7 +42,7 @@ namespace ParkingLotns
             }
             else
             {
-                return "The parking lot is full";
+                return "No available position";
             }
         }
     }

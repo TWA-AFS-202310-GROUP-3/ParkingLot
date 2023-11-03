@@ -78,7 +78,7 @@ namespace ParkingLotTest
 
             string ticket11 = parkingLot.Park("car11");
 
-            Assert.Equal("The parking lot is full", ticket11);
+            Assert.Equal("No available position", ticket11);
         }
     }
 }
