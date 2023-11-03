@@ -68,5 +68,16 @@ namespace ParkingLotTest
 
             Assert.Null(ticket1);
         }
+
+        [Fact]
+        public void Should_Not_Allow_Parking_When_Park_a_Parked_Car()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+
+            string ticket1 = parkingLot.Park("car1");
+            string actualResult = parkingLot.Park("car1");
+
+            Assert.Null(actualResult);
+        }
     }
 }

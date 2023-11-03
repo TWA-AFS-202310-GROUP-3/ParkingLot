@@ -24,7 +24,7 @@
 
         public string Park(string car)
         {
-            if (currentCarParked >= capacity)
+            if (currentCarParked >= capacity || parkingTicket.ContainsValue(car))
             {
                 return null;
             }
