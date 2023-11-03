@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using ParkingLotPractice;
+using System.Threading.Tasks.Dataflow;
 
 namespace ParkingLotTest
 {
@@ -44,11 +45,9 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket1 = parkingLot.Park("car1");
             string ticket2 = "T-car2";
-            string expectedResult = null;
-            // When
-            string result = parkingLot.Fetch(ticket2);
-            // Then
-            Assert.Equal(expectedResult, result);
+
+            // When// Then
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket2));
         }
 
         [Fact]
@@ -56,11 +55,10 @@ namespace ParkingLotTest
         {
             // Given
             ParkingLot parkingLot = new ParkingLot();
-            string expectedResult = null;
             // When
             string result = parkingLot.Fetch();
             // Then
-            Assert.Equal(expectedResult, result);
+            Assert.Null(result);
         }
 
         [Fact]
@@ -70,11 +68,9 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket = parkingLot.Park("car");
             string car = parkingLot.Fetch(ticket);
-            string expectedResult = null;
-            // When
-            string result = parkingLot.Fetch(ticket);
-            // Then
-            Assert.Equal(expectedResult, result);
+
+            // When// Then
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket));
         }
 
         [Fact]
@@ -87,11 +83,8 @@ namespace ParkingLotTest
                 parkingLot.Park("car" + i.ToString());
             }
 
-            string expectedResult = null;
-            // When
-            string result = parkingLot.Park("car");
-            // Then
-            Assert.Equal(expectedResult, result);
+            // When// Then
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => parkingLot.Park("car"));
         }
     }
 }

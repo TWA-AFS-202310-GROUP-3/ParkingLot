@@ -16,7 +16,7 @@ namespace ParkingLotPractice
         {
             if (!ticket2Car.ContainsKey(ticket))
             {
-                return null;
+                throw new WrongTicketException("Unrecognized parking ticket. ");
             }
             else
             {
@@ -33,9 +33,9 @@ namespace ParkingLotPractice
 
         public string Park(string car)
         {
-            if (ticket2Car.Count == maxcapacity)
+            if (ticket2Car.Count >= maxcapacity)
             {
-                return null;
+                throw new NoPositionException("No available position. ");
             }
 
             string ticket = "T-" + car;
