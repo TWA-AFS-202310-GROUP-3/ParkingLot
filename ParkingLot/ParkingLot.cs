@@ -12,7 +12,7 @@
 
         public string Fetch(string ticket)
         {
-            if (!parkingTicket.ContainsKey(ticket))
+            if (ticket == null || !parkingTicket.ContainsKey(ticket))
             {
                 return null;
             }
@@ -24,7 +24,7 @@
 
         public string Park(string car)
         {
-            if (currentCarParked >= capacity || parkingTicket.ContainsValue(car))
+            if (car == null || currentCarParked >= capacity || parkingTicket.ContainsValue(car))
             {
                 return null;
             }

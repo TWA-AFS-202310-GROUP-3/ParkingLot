@@ -79,5 +79,26 @@ namespace ParkingLotTest
 
             Assert.Null(actualResult);
         }
+
+        [Fact]
+        public void Should_Not_Allow_Parking_When_Park_With_Null_Car()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+
+            string actualResult = parkingLot.Park(null);
+
+            Assert.Null(actualResult);
+        }
+
+        [Fact]
+        public void Should_Not_Allow_Fetch_When_Fetch_With_Null_Ticket()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket1 = parkingLot.Park("car1");
+
+            string actualResult = parkingLot.Fetch(null);
+
+            Assert.Null(actualResult);
+        }
     }
 }
