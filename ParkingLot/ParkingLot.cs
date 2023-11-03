@@ -27,7 +27,8 @@ namespace ParkingLotns
             }
             else
             {
-                return "sorry, this ticket not found!";
+                throw new WrongException("Unrecognized parking ticket");
+                //return "sorry, this ticket not found!";
             }
         }
 
