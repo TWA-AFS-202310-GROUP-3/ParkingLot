@@ -38,9 +38,8 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket1 = parkingLot.Park("car1");
 
-            string actualCar1 = parkingLot.Fetch("wrongTicketId");
-
-            Assert.Null(actualCar1);
+            InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingLot.Fetch("wrongTicketId"));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]
@@ -50,9 +49,9 @@ namespace ParkingLotTest
             string ticket1 = parkingLot.Park("car1");
 
             string actualCar1 = parkingLot.Fetch(ticket1);
-            string actualResult = parkingLot.Fetch(ticket1);
 
-            Assert.Null(actualResult);
+            InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingLot.Fetch(ticket1));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]
@@ -64,9 +63,8 @@ namespace ParkingLotTest
                 parkingLot.Park($"{i}");
             }
 
-            string ticket1 = parkingLot.Park("car1");
-
-            Assert.Null(ticket1);
+            OutOfCapacityException exception = Assert.Throws<OutOfCapacityException>(() => parkingLot.Park("car1"));
+            Assert.Equal("No available position.", exception.Message);
         }
 
         [Fact]

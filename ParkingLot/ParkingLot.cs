@@ -12,9 +12,14 @@
 
         public string Fetch(string ticket)
         {
-            if (ticket == null || !parkingTicket.ContainsKey(ticket))
+            if (ticket == null)
             {
                 return null;
+            }
+
+            if (!parkingTicket.ContainsKey(ticket))
+            {
+                throw new InvalidTicketException("Unrecognized parking ticket.");
             }
 
             string car = parkingTicket[ticket];
@@ -24,9 +29,14 @@
 
         public string Park(string car)
         {
-            if (car == null || currentCarParked >= capacity || parkingTicket.ContainsValue(car))
+            if (car == null || parkingTicket.ContainsValue(car))
             {
                 return null;
+            }
+
+            if (currentCarParked >= capacity)
+            {
+                throw new OutOfCapacityException("No available position.");
             }
 
             currentCarParked++;
