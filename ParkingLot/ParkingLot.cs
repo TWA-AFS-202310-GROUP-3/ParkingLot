@@ -9,6 +9,10 @@
         private Dictionary<string, string> parkingTicket = new Dictionary<string, string>();
         public string Fetch(string ticket)
         {
+            if (!parkingTicket.ContainsKey(ticket))
+            {
+                return null;
+            }
             string car = parkingTicket[ticket];
             parkingTicket.Remove(ticket);
             return car;
