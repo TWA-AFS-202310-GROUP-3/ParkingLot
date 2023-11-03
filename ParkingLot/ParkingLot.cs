@@ -5,8 +5,11 @@
 
     public class ParkingLot
     {
-        private string car;
+        private int capacity = 10;
+        private int currentCarParked = 0;
         private Dictionary<string, string> parkingTicket = new Dictionary<string, string>();
+        private object retun;
+
         public string Fetch(string ticket)
         {
             if (!parkingTicket.ContainsKey(ticket))
@@ -21,6 +24,12 @@
 
         public string Park(string car)
         {
+            if (currentCarParked >= capacity)
+            {
+                return null;
+            }
+
+            currentCarParked++;
             string ticketId = Guid.NewGuid().ToString();
             parkingTicket.Add(ticketId, car);
             return ticketId;
