@@ -1,14 +1,14 @@
-﻿namespace ParkingLotProj
-{
-    using System;
-    using System.Collections.Generic;
+﻿using ParkingLotProj.ErrorHandling;
+using System;
+using System.Collections.Generic;
 
+namespace ParkingLotProj
+{
     public class ParkingLot
     {
         private int capacity = 10;
         private int currentCarParked = 0;
         private Dictionary<string, string> parkingTicket = new Dictionary<string, string>();
-        private object retun;
 
         public string Fetch(string ticket)
         {

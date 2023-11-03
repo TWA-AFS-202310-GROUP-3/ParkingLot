@@ -1,4 +1,4 @@
-﻿namespace ParkingLotProj
+﻿namespace ParkingLotProj.ErrorHandling
 {
     using System;
     using System.Runtime.Serialization;

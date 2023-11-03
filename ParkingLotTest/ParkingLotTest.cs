@@ -1,4 +1,5 @@
 ﻿using ParkingLotProj;
+using ParkingLotProj.ErrorHandling;
 using Xunit;
 
 namespace ParkingLotTest
