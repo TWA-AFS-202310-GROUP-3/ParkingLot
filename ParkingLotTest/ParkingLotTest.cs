@@ -42,5 +42,17 @@ namespace ParkingLotTest
 
             Assert.Null(actualCar1);
         }
+
+        [Fact]
+        public void Should_Not_Return_Car_When_Fetch_With_Used_Ticket()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket1 = parkingLot.Park("car1");
+
+            string actualCar1 = parkingLot.Fetch(ticket1);
+            string actualResult = parkingLot.Fetch(ticket1);
+
+            Assert.Null(actualResult);
+        }
     }
 }

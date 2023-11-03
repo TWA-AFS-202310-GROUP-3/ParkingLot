@@ -13,6 +13,7 @@
             {
                 return null;
             }
+
             string car = parkingTicket[ticket];
             parkingTicket.Remove(ticket);
             return car;
