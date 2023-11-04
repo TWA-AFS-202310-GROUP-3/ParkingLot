@@ -10,6 +10,15 @@ namespace ParkingLotProj
         private int currentCapacity = 0;
         private Dictionary<string, string> parkingTicket = new Dictionary<string, string>();
 
+        public ParkingLot()
+        {
+        }
+
+        public ParkingLot(int capacity)
+        {
+            this.capacity = capacity;
+        }
+
         public int CurrentCapacity { get => currentCapacity; }
 
         public string Fetch(string ticket)

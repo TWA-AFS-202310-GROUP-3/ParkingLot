@@ -91,17 +91,30 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_Park_To_First_Available_ParkingLot_Given_Two_ParkingLot()
+        public void Should_Park_To_First_Available_ParkingLot_Given_Two_ParkingLot_Available()
         {
             ParkingLot parkingLot1 = new ParkingLot();
             ParkingLot parkingLot2 = new ParkingLot();
-
             ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
 
             string ticket1 = parkingBoy.Park("car1");
 
             Assert.Equal(1, parkingLot1.CurrentCapacity);
+        }
+
+        [Fact]
+        public void Should_Park_To_Second_ParkingLot_Given_One_Full_One_Available()
+        {
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            ParkingLot parkingLot2 = new ParkingLot();
+            parkingLot1.Park("aCar");
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+            parkingBoy.AddManageParkingLot(parkingLot2);
+
+            string ticket1 = parkingBoy.Park("car1");
+
+            Assert.Equal(1, parkingLot2.CurrentCapacity);
         }
     }
 }
