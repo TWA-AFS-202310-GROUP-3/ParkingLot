@@ -131,5 +131,33 @@ namespace ParkingLotTest
             Assert.Equal("aCar", parkingBoy.Fetch(ticketA));
             Assert.Equal("bCar", parkingBoy.Fetch(ticketB));
         }
+
+        [Fact]
+        public void Should_Not_Return_Car_Given_Two_ParkingLot_When_Fetch_With_Wrong_Ticket()
+        {
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            ParkingLot parkingLot2 = new ParkingLot();
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+            parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.Park("car1");
+
+            InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingBoy.Fetch("wrongTicketId"));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
+        }
+
+        [Fact]
+        public void Should_Not_Return_Car_Given_Two_ParkingLot_When_Fetch_With_Used_Ticket()
+        {
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            ParkingLot parkingLot2 = new ParkingLot();
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+            parkingBoy.AddManageParkingLot(parkingLot2);
+            string ticket = parkingBoy.Park("car1");
+
+            parkingBoy.Fetch(ticket);
+
+            InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingBoy.Fetch(ticket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
+        }
     }
 }
