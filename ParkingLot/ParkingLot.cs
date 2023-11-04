@@ -23,7 +23,8 @@ namespace ParkingLotns
             }
             else if (usedTickets.Contains(ticket))
             {
-                return "sorry, this ticket used!";
+                throw new WrongException("Unrecognized parking ticket");
+                //return "sorry, this ticket used!";
             }
             else
             {
