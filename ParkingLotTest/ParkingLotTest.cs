@@ -39,7 +39,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_get_no_car_when_ticket_is_wrong()
+        public void Should_return_WrongTicketException_when_ticket_is_wrong()
         {
             // Given
             ParkingLot parkingLot = new ParkingLot();
@@ -62,7 +62,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_get_no_car_when_ticket_is_used_before()
+        public void Should_return_WrongTicketException_when_ticket_is_used_before()
         {
             // Given
             ParkingLot parkingLot = new ParkingLot();
@@ -74,7 +74,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_fail_to_park_when_capacity_is_full()
+        public void Should_return_NoPositionException_when_capacity_is_full()
         {
             // Given
             ParkingLot parkingLot = new ParkingLot();
