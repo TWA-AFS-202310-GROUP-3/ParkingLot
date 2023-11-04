@@ -159,5 +159,20 @@ namespace ParkingLotTest
             InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingBoy.Fetch(ticket));
             Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
+
+        [Fact]
+        public void Should_Not_Allow_Parking_When_All_ParkingLot_Full()
+        {
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            ParkingLot parkingLot2 = new ParkingLot(1);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+            parkingBoy.AddManageParkingLot(parkingLot2);
+
+            parkingBoy.Park("car1");
+            parkingBoy.Park("car2");
+
+            OutOfCapacityException exception = Assert.Throws<OutOfCapacityException>(() => parkingBoy.Park("car3"));
+            Assert.Equal("No available position.", exception.Message);
+        }
     }
 }
