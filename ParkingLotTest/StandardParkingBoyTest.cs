@@ -14,7 +14,7 @@ namespace ParkingLotTest
         public void Should_return_ticket_when_ParkCar_Given_car()
         {
             ParkingLot parkinglot = new ParkingLot(10);
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkinglot);
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkinglot); //parking boy act as a proxy here
 
             string ticket = standardParkingBoy.ParkCar("volvo");
 

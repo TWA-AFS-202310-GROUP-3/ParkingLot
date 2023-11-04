@@ -30,6 +30,20 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_return_right_car_when_FetchCar_twice_Given_two_ticket()
+        {
+            ParkingLot parkinglot = new ParkingLot();
+            string ticket1 = parkinglot.ParkCar("volvo");
+            string ticket2 = parkinglot.ParkCar("Benz");
+
+            string fetchedcar1 = parkinglot.FetchCar(ticket1);
+            string fetchedcar2 = parkinglot.FetchCar(ticket2);
+
+            Assert.Equal("volvo", fetchedcar1);
+            Assert.Equal("Benz", fetchedcar2);
+        }
+
+        [Fact]
         public void Should_throw_exception_when_FetchCar_Given_wrong_ticket()
         {
             //given
