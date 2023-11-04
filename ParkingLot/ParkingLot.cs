@@ -7,8 +7,10 @@ namespace ParkingLotProj
     public class ParkingLot : IParkingBehavior
     {
         private int capacity = 10;
-        private int currentCarParked = 0;
+        private int currentCapacity = 0;
         private Dictionary<string, string> parkingTicket = new Dictionary<string, string>();
+
+        public int CurrentCapacity { get => currentCapacity; }
 
         public string Fetch(string ticket)
         {
@@ -24,6 +26,7 @@ namespace ParkingLotProj
 
             string car = parkingTicket[ticket];
             parkingTicket.Remove(ticket);
+            currentCapacity--;
             return car;
         }
 
@@ -34,15 +37,25 @@ namespace ParkingLotProj
                 return null;
             }
 
-            if (currentCarParked >= capacity)
+            if (currentCapacity >= capacity)
             {
                 throw new OutOfCapacityException("No available position.");
             }
 
-            currentCarParked++;
+            currentCapacity++;
             string ticketId = Guid.NewGuid().ToString();
             parkingTicket.Add(ticketId, car);
             return ticketId;
+        }
+
+        public bool IsContainTicket(string ticketId)
+        {
+            return parkingTicket.ContainsKey(ticketId);
+        }
+
+        public bool IsFull()
+        {
+            return currentCapacity >= capacity;
         }
     }
 }

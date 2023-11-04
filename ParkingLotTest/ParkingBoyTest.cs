@@ -91,26 +91,17 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_Not_Allow_Parking_When_Park_With_Null_Car()
+        public void Should_Park_To_First_Available_ParkingLot_Given_Two_ParkingLot()
         {
-            ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
 
-            string actualResult = parkingBoy.Park(null);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+            parkingBoy.AddManageParkingLot(parkingLot2);
 
-            Assert.Null(actualResult);
-        }
-
-        [Fact]
-        public void Should_Not_Allow_Fetch_When_Fetch_With_Null_Ticket()
-        {
-            ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
             string ticket1 = parkingBoy.Park("car1");
 
-            string actualResult = parkingBoy.Fetch(null);
-
-            Assert.Null(actualResult);
+            Assert.Equal(1, parkingLot1.CurrentCapacity);
         }
     }
 }
