@@ -10,7 +10,7 @@ namespace ParkingLotTest
         [Fact]
         public void Should_return_ticket_when_ParkCar_Given_car()
         {
-            ParkingLot parkinglot = new ParkingLot();
+            ParkingLot parkinglot = new ParkingLot(10);
 
             string ticket = parkinglot.ParkCar("volvo");
 
@@ -59,6 +59,15 @@ namespace ParkingLotTest
             parkingLot.FetchCar(ticket);
 
             Assert.Throws<InvalidOperationException>(() => parkingLot.FetchCar(ticket));
+        }
+
+        [Fact]
+        public void ParkCar_FullCapacity_ThrowsException()
+        {
+            ParkingLot parkingLot = new ParkingLot(1);
+            parkingLot.ParkCar("Benz");
+
+            Assert.Throws<InvalidOperationException>(() => parkingLot.ParkCar("volvo"));
         }
     }
 }
