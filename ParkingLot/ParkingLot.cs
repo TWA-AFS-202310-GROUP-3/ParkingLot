@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ParkingLotProj
 {
-    public class ParkingLot
+    public class ParkingLot : IParkingBehavior
     {
         private int capacity = 10;
         private int currentCarParked = 0;
