@@ -68,16 +68,16 @@ namespace ParkingLotTest
         [Fact]
         public void Should_not_return_car_When_fetch_Given_wrong_or_no_ticket()
         {
-            var expect_car = string.Empty;
+            var expect_msg = "Unrecognized parking ticket!";
             var wrong_ticket = "WRONG Ticket";
             var empty_ticket = string.Empty;
             ParkingLotPlace parkingLot = new ParkingLotPlace();
 
-            var actual_car1 = parkingLot.FetchCar(wrong_ticket);
-            var actual_car2 = parkingLot.FetchCar(empty_ticket);
+            WrongTicketException acturl_wrong_ticket = Assert.Throws<WrongTicketException>(() => parkingLot.FetchCar(wrong_ticket));
+            WrongTicketException acturl_empty_ticket = Assert.Throws<WrongTicketException>(() => parkingLot.FetchCar(empty_ticket));
 
-            Assert.Equal(expect_car, actual_car1);
-            Assert.Equal(expect_car, actual_car2);
+            Assert.Equal(expect_msg, acturl_wrong_ticket.Message);
+            Assert.Equal(expect_msg, acturl_empty_ticket.Message);
         }
 
         [Fact]
@@ -87,11 +87,11 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLot = new ParkingLotPlace();
             var ticket = parkingLot.ParkCar(car);
             parkingLot.FetchCar(ticket);
-            var expect_car = string.Empty;
+            var expect_msg = "Unrecognized parking ticket!";
 
-            var actual_car = parkingLot.FetchCar(ticket);
+            WrongTicketException acturl_wrong_ticket = Assert.Throws<WrongTicketException>(() => parkingLot.FetchCar(car));
 
-            Assert.Equal(expect_car, actual_car);
+            Assert.Equal(expect_msg, acturl_wrong_ticket.Message);
         }
 
         [Fact]
