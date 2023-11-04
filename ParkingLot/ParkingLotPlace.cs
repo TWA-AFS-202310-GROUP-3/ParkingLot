@@ -13,7 +13,7 @@ namespace ParkingLot
         {
             if (!ticketToCar.ContainsKey(ticket))
             {
-                throw new WrongTicketException("Unrecognized parking ticket!");
+                throw new WrongException("Unrecognized parking ticket.");
             }
 
             var car = ticketToCar[ticket];
@@ -26,7 +26,7 @@ namespace ParkingLot
         {
             if (CarNumber() >= this.capacity)
             {
-                return string.Empty;
+                throw new WrongException("No available position.");
             }
 
             var ticket = $"T_{car}";

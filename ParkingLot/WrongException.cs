@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ParkingLot
 {
-    public class WrongTicketException : Exception
+    public class WrongException : Exception
     {
-        public WrongTicketException(string message) : base(message)
+        public WrongException(string message) : base(message)
         {
         }
     }
