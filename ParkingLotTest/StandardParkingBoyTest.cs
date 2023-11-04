@@ -15,7 +15,7 @@ namespace ParkingLotTest
         {
             // Given
             ParkingLot parkingLot = new ParkingLot();
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot);
             string car = "car1";
             string expectedResult = "T-car1";
             // When
@@ -31,7 +31,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string car = "car1";
             string ticket = parkingLot.Park(car);
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot);
             string expectedResult = "car1";
             // When
             string result = standardParkingBoy.Fetch(ticket);
@@ -48,7 +48,7 @@ namespace ParkingLotTest
             string car2 = "car2";
             string ticket1 = parkingLot.Park(car1);
             string ticket2 = parkingLot.Park(car2);
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot);
             string expectedResult1 = "car1";
             string expectedResult2 = "car2";
             // When
@@ -66,7 +66,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket1 = parkingLot.Park("car1");
             string ticket2 = "T-car2";
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot);
             // When// Then
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => standardParkingBoy.Fetch(ticket2));
         }
@@ -78,7 +78,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket = parkingLot.Park("car");
             string car = parkingLot.Fetch(ticket);
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot);
             // When// Then
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => standardParkingBoy.Fetch(ticket));
         }
@@ -89,7 +89,7 @@ namespace ParkingLotTest
             // Given
             ParkingLot parkingLot = new ParkingLot(1);
             parkingLot.Park("car1");
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot);
             // When// Then
             NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => standardParkingBoy.Park("car"));
         }
@@ -100,7 +100,7 @@ namespace ParkingLotTest
             // Given
             ParkingLot parkingLot1 = new ParkingLot();
             ParkingLot parkingLot2 = new ParkingLot();
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot1, parkingLot2);
             string ticket = standardParkingBoy.Park("car");
             string expectedResult = "car";
             // When
@@ -116,7 +116,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot1 = new ParkingLot(1);
             parkingLot1.Park("car1");
             ParkingLot parkingLot2 = new ParkingLot();
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot1, parkingLot2);
             string ticket = standardParkingBoy.Park("car2");
             string expectedResult = "car2";
             // When
@@ -133,7 +133,7 @@ namespace ParkingLotTest
             string ticket1 = parkingLot1.Park("car1");
             ParkingLot parkingLot2 = new ParkingLot();
             string ticket2 = parkingLot2.Park("car2");
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot1, parkingLot2);
             string expectedResult1 = "car1";
             string expectedResult2 = "car2";
             // When
@@ -152,7 +152,7 @@ namespace ParkingLotTest
             string ticket1 = parkingLot1.Park("car1");
             ParkingLot parkingLot2 = new ParkingLot();
             string ticket2 = parkingLot2.Park("car2");
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot1, parkingLot2);
             string ticket3 = "T-car3";
             // When// Then
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => standardParkingBoy.Fetch(ticket3));
@@ -166,7 +166,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot2 = new ParkingLot();
             string ticket1 = parkingLot1.Park("car1");
             parkingLot2.Park("car2");
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot1, parkingLot2);
             standardParkingBoy.Fetch(ticket1);
             // When// Then
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => standardParkingBoy.Fetch(ticket1));
@@ -180,7 +180,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot2 = new ParkingLot(1);
             parkingLot1.Park("car1");
             parkingLot2.Park("car2");
-            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            StrategicParkingBoy standardParkingBoy = new StrategicParkingBoy(new StandardStragegy(), parkingLot1, parkingLot2);
             // When// Then
             NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => standardParkingBoy.Park("car"));
         }
