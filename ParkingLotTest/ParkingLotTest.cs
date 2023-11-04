@@ -1,4 +1,5 @@
 ﻿using ParkingLotPlace;
+using System;
 using Xunit;
 
 namespace ParkingLotTest
@@ -25,6 +26,28 @@ namespace ParkingLotTest
             string fetchedcar = parkinglot.FetchCar(ticket);
             //then
             Assert.Equal("volvo", fetchedcar);
+        }
+
+        [Fact]
+        public void Should_throw_exception_when_FetchCar_Given_wrong_ticket()
+        {
+            //given
+            ParkingLot parkinglot = new ParkingLot();
+            //when
+            string ticket = "12342";
+            //then
+            Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
+        }
+
+        [Fact]
+        public void Should_throw_exception_when_FetchCar_Given_no_ticket()
+        {
+            //given
+            ParkingLot parkinglot = new ParkingLot();
+            //when
+            string ticket = string.Empty;
+            //then
+            Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
         }
     }
 }

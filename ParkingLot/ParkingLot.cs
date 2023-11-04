@@ -20,6 +20,11 @@ namespace ParkingLotPlace
 
         public string FetchCar(string ticket)
         {
+            if (!ticket_Car.ContainsKey(ticket))
+            {
+                throw new ArgumentException("Invalid ticket number.");
+            }
+
             string car = ticket_Car[ticket];
             return car;
         }
