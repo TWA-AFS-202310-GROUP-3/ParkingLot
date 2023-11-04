@@ -9,6 +9,7 @@ namespace ParkingLotns
 {
     public class ParkingLot
     {
+        private int capacity = 10;
         private Dictionary<string, string> ticket2Car = new Dictionary<string, string>();
         private List<string> usedTickets = new List<string>();
 
@@ -36,7 +37,7 @@ namespace ParkingLotns
         public string Park(string car)
         {
             string ticket = "T-" + car;
-            if (ticket2Car.Count < 10)
+            if (ticket2Car.Count < capacity)
             {
                 ticket2Car.Add(ticket, car);
                 return ticket;
@@ -45,6 +46,11 @@ namespace ParkingLotns
             {
                 return "No available position";
             }
+        }
+
+        public bool HasAvailablePosition()
+        {
+            return ticket2Car.Count < capacity;
         }
     }
 }
