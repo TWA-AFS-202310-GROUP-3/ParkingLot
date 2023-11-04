@@ -82,9 +82,10 @@ namespace ParkingLotTest
             string ticket9 = standardParkingBoy.ParkCar("car9");
             string ticket10 = standardParkingBoy.ParkCar("car10");
 
-            string ticket11 = standardParkingBoy.ParkCar("car11");
+            //string ticket11 = standardParkingBoy.ParkCar("car11");
+            WrongException wrongException = Assert.Throws<WrongException>(() => standardParkingBoy.ParkCar("car11"));
 
-            Assert.Equal("No available position", ticket11);
+            Assert.Equal("No available position", wrongException.Message);
         }
 
         [Fact]
@@ -178,9 +179,26 @@ namespace ParkingLotTest
             string ticket19 = standardParkingBoy.ParkCar("car19");
             string ticket20 = standardParkingBoy.ParkCar("car20");
 
-            string ticket21 = standardParkingBoy.ParkCar("car21");
+            //string ticket21 = standardParkingBoy.ParkCar("car21");
+            WrongException wrongException = Assert.Throws<WrongException>(() => standardParkingBoy.ParkCar("car21"));
 
-            Assert.Equal("No available position", ticket21);
+            Assert.Equal("No available position", wrongException.Message);
+        }
+
+        [Fact]
+        public void Should_park_in_more_available_positions_when_two_parking_lots()
+        {
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
+            string ticket1 = parkingLot1.Park("car1");
+            string ticket2 = parkingLot1.Park("car2");
+            string ticket3 = parkingLot1.Park("car3");
+            string ticket4 = parkingLot2.Park("car4");
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new List<ParkingLot> { parkingLot1, parkingLot2 });
+
+            string ticket5 = standardParkingBoy.ParkCar("car5");
+
+            Assert.True(parkingLot2.ContainsCar(ticket5));
         }
     }
 }

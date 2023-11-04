@@ -52,5 +52,15 @@ namespace ParkingLotns
         {
             return ticket2Car.Count < capacity;
         }
+
+        public int GetAvailablePositions()
+        {
+            return capacity - ticket2Car.Count;
+        }
+
+        public bool ContainsCar(string ticket)
+        {
+            return ticket2Car.ContainsKey(ticket);
+        }
     }
 }

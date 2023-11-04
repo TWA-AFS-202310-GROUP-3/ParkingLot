@@ -20,7 +20,10 @@ namespace ParkingLotns
         {
             foreach (var parkingLot in parkingLots)
             {
-                return parkingLot.Fetch(ticket);
+                if (parkingLot.ContainsCar(ticket))
+                {
+                    return parkingLot.Fetch(ticket);
+                }
             }
 
             throw new WrongException("Unrecognized parking ticket");
@@ -28,15 +31,24 @@ namespace ParkingLotns
 
         public string ParkCar(string car)
         {
+            ParkingLot whichHaveMostPositions = null;
+            int maxAvailablePositions = -1;
+
             foreach (var parkingLot in parkingLots)
             {
-                if (parkingLot.HasAvailablePosition())
+                if (parkingLot.HasAvailablePosition() && parkingLot.GetAvailablePositions() > maxAvailablePositions)
                 {
-                    return parkingLot.Park(car);
+                    whichHaveMostPositions = parkingLot;
+                    maxAvailablePositions = parkingLot.GetAvailablePositions();
                 }
             }
 
-            return "No available position";
+            if (whichHaveMostPositions == null)
+            {
+                throw new WrongException("No available position");
+            }
+
+            return whichHaveMostPositions.Park(car);
         }
     }
 }
