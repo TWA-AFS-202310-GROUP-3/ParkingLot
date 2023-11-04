@@ -38,6 +38,22 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_return_right_car_When_fetch_Given_right_ticket()
+        {
+            var car1 = "Benze";
+            var car2 = "BMW";
+            var expect_ticket1 = "T_Benze";
+            var expect_ticket2 = "T_BMW";
+            ParkingLotPlace parkingLot = new ParkingLotPlace();
+
+            var actual_ticket1 = parkingLot.ParkCar(car1);
+            var actual_ticket2 = parkingLot.ParkCar(car2);
+
+            Assert.Equal(expect_ticket1, actual_ticket1);
+            Assert.Equal(expect_ticket2, actual_ticket2);
+        }
+
+        [Fact]
         public void Should_return_right_car_When_fetch_Given_associated_ticket()
         {
             var expect_car = "Benze";
