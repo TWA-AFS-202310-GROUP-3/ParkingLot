@@ -93,5 +93,96 @@ namespace ParkingLotTest
             // When// Then
             NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => standardParkingBoy.Park("car"));
         }
+
+        [Fact]
+        public void Should_park_in_first_lot_when_park_a_car_between_2_available_parkingLot()
+        {
+            // Given
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            string ticket = standardParkingBoy.Park("car");
+            string expectedResult = "car";
+            // When
+            string result = parkingLot1.Fetch(ticket);
+            // Then
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void Should_park_in_second_lot_when_first_parkingLot_is_full()
+        {
+            // Given
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            parkingLot1.Park("car1");
+            ParkingLot parkingLot2 = new ParkingLot();
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            string ticket = standardParkingBoy.Park("car2");
+            string expectedResult = "car2";
+            // When
+            string result = parkingLot2.Fetch(ticket);
+            // Then
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void Should_return_right_car_when_fetch_two_cars_in_different_parkingLots()
+        {
+            // Given
+            ParkingLot parkingLot1 = new ParkingLot();
+            string ticket1 = parkingLot1.Park("car1");
+            ParkingLot parkingLot2 = new ParkingLot();
+            string ticket2 = parkingLot2.Park("car2");
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            string expectedResult1 = "car1";
+            string expectedResult2 = "car2";
+            // When
+            string result1 = standardParkingBoy.Fetch(ticket1);
+            string result2 = standardParkingBoy.Fetch(ticket2);
+            // Then
+            Assert.Equal(expectedResult1, result1);
+            Assert.Equal(expectedResult2, result2);
+        }
+
+        [Fact]
+        public void Should_get_WrongTicketException_when_parkingBoy_with_2_parkingLots_fetches_with_ticket_is_wrong()
+        {
+            // Given
+            ParkingLot parkingLot1 = new ParkingLot();
+            string ticket1 = parkingLot1.Park("car1");
+            ParkingLot parkingLot2 = new ParkingLot();
+            string ticket2 = parkingLot2.Park("car2");
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            string ticket3 = "T-car3";
+            // When// Then
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => standardParkingBoy.Fetch(ticket3));
+        }
+
+        [Fact]
+        public void Should_get_WrongTicketException_when_parkingBoy_with_2_parkingLots_fetches_with_used_ticket()
+        {
+            // Given
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
+            string ticket1 = parkingLot1.Park("car1");
+            parkingLot2.Park("car2");
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            standardParkingBoy.Fetch(ticket1);
+            // When// Then
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => standardParkingBoy.Fetch(ticket1));
+        }
+
+        [Fact]
+        public void Should_return_NoPositionException_when_2_parkingLots_are_full()
+        {
+            // Given
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            ParkingLot parkingLot2 = new ParkingLot(1);
+            parkingLot1.Park("car1");
+            parkingLot2.Park("car2");
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+            // When// Then
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => standardParkingBoy.Park("car"));
+        }
     }
 }

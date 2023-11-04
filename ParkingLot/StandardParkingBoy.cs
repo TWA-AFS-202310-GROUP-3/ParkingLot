@@ -8,20 +8,38 @@ namespace ParkingLotPractice
 {
     public class StandardParkingBoy
     {
-        private ParkingLot parkingLot;
-        public StandardParkingBoy(ParkingLot parkingLot)
+        private ParkingLot[] parkingLots;
+        public StandardParkingBoy(params ParkingLot[] parkingLots)
         {
-            this.parkingLot = parkingLot;
+            this.parkingLots = parkingLots;
         }
 
         public string Park(string car)
         {
-            return parkingLot.Park(car);
+            foreach (var parkingLot in parkingLots)
+            {
+                try
+                {
+                    return parkingLot.Park(car);
+                }
+                catch { }
+            }
+
+            throw new NoPositionException("No available position. ");
         }
 
         public string Fetch(string ticket)
         {
-            return parkingLot.Fetch(ticket);
+            foreach (var parkingLot in parkingLots)
+            {
+                try
+                {
+                   return parkingLot.Fetch(ticket);
+                }
+                catch { }
+            }
+
+            throw new WrongTicketException("Unrecognized parking ticket. ");
         }
     }
 }

@@ -21,6 +21,11 @@ namespace ParkingLotPractice
             this.maxcapacity = maxcapacity;
         }
 
+        public int GetAvailablePositionAmount()
+        {
+            return maxcapacity - ticket2Car.Count;
+        }
+
         public string Fetch(string ticket)
         {
             if (!ticket2Car.ContainsKey(ticket))

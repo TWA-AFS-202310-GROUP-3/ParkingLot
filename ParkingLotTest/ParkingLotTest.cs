@@ -31,11 +31,14 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket1 = parkingLot.Park("car1");
             string ticket2 = parkingLot.Park("car2");
-            string expectedResult = "car2";
+            string expectedResult1 = "car1";
+            string expectedResult2 = "car2";
             // When
-            string result = parkingLot.Fetch(ticket2);
+            string result1 = parkingLot.Fetch(ticket1);
+            string result2 = parkingLot.Fetch(ticket2);
             // Then
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult1, result1);
+            Assert.Equal(expectedResult2, result2);
         }
 
         [Fact]
