@@ -7,23 +7,49 @@ using System.Threading.Tasks;
 
 namespace ParkingLotPlace
 {
-    public class StandardParkingBoy
+    public class StandardParkingBoy //parking boy act as a proxy here
     {
-        private ParkingLot parkingLot;
+        private List<ParkingLot> parkingLots;
+        private int currentParkingLot;
 
-        public StandardParkingBoy(ParkingLot parkingLot)
+        public StandardParkingBoy(List<ParkingLot> parkingLots)
         {
-            this.parkingLot = parkingLot;
+            this.parkingLots = parkingLots;
+            this.currentParkingLot = 0;
         }
 
         public string ParkCar(string car)
         {
-            return parkingLot.ParkCar(car);
+            while (currentParkingLot < parkingLots.Count)
+            {
+                var parkingLot = parkingLots[currentParkingLot];
+                try
+                {
+                    return parkingLot.ParkCar(car);
+                }
+                catch (InvalidOperationException)
+                {
+                    currentParkingLot++;
+                }
+            }
+
+            throw new InvalidOperationException("No available position.");
         }
 
         public string FetchCar(string ticket)
         {
-            return parkingLot.FetchCar(ticket);
+            foreach (var parkingLot in parkingLots)
+            {
+                try
+                {
+                    return parkingLot.FetchCar(ticket);
+                }
+                catch (ArgumentException)
+                {
+                }
+            }
+
+            throw new ArgumentException("Unrecognized parking ticket.");
         }
     }
 }

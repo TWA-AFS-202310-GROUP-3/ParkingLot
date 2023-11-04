@@ -39,7 +39,7 @@ namespace ParkingLotPlace
 
             if (usedTickets.Contains(ticket))
             {
-                throw new InvalidOperationException("Unrecognized parking ticket.");
+                throw new ArgumentException("Unrecognized parking ticket.");
             }
 
             string car = ticket_Car[ticket];

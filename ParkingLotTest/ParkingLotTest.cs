@@ -10,7 +10,7 @@ namespace ParkingLotTest
         [Fact]
         public void Should_return_ticket_when_ParkCar_Given_car()
         {
-            ParkingLot parkinglot = new ParkingLot(10);
+            ParkingLot parkinglot = new ParkingLot();
 
             string ticket = parkinglot.ParkCar("volvo");
 
