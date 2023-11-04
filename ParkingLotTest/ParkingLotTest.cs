@@ -74,7 +74,7 @@ namespace ParkingLotTest
             string ticket = parkingLot.ParkCar("Benz");
             parkingLot.FetchCar(ticket);
 
-            var exception = Assert.Throws<InvalidOperationException>(() => parkingLot.FetchCar(ticket));
+            var exception = Assert.Throws<ArgumentException>(() => parkingLot.FetchCar(ticket));
             Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
