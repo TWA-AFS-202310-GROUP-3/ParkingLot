@@ -37,7 +37,8 @@ namespace ParkingLotTest
             //when
             string ticket = "12342";
             //then
-            Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
+            var exception = Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]
@@ -48,7 +49,8 @@ namespace ParkingLotTest
             //when
             string ticket = string.Empty;
             //then
-            Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
+            var exception = Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]
@@ -58,16 +60,18 @@ namespace ParkingLotTest
             string ticket = parkingLot.ParkCar("Benz");
             parkingLot.FetchCar(ticket);
 
-            Assert.Throws<InvalidOperationException>(() => parkingLot.FetchCar(ticket));
+            var exception = Assert.Throws<InvalidOperationException>(() => parkingLot.FetchCar(ticket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
         [Fact]
-        public void ParkCar_FullCapacity_ThrowsException()
+        public void Should_throw_exception_when_FetchCar_Given_full_capacity()
         {
             ParkingLot parkingLot = new ParkingLot(1);
             parkingLot.ParkCar("Benz");
 
-            Assert.Throws<InvalidOperationException>(() => parkingLot.ParkCar("volvo"));
+            var exception = Assert.Throws<InvalidOperationException>(() => parkingLot.ParkCar("volvo"));
+            Assert.Equal("No available position.", exception.Message);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ParkingLotPlace
         {
             if (ticket_Car.Count >= capacity)
             {
-                throw new InvalidOperationException("No available parking space.");
+                throw new InvalidOperationException("No available position.");
             }
 
             var ticket = $"T{car}";
@@ -34,12 +34,12 @@ namespace ParkingLotPlace
         {
             if (!ticket_Car.ContainsKey(ticket))
             {
-                throw new ArgumentException("Invalid ticket number.");
+                throw new ArgumentException("Unrecognized parking ticket.");
             }
 
             if (usedTickets.Contains(ticket))
             {
-                throw new InvalidOperationException("Ticket has already been used.");
+                throw new InvalidOperationException("Unrecognized parking ticket.");
             }
 
             string car = ticket_Car[ticket];
