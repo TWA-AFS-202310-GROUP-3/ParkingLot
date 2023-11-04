@@ -11,6 +11,7 @@ namespace ParkingLotPlace
     {
         private string car;
         private Dictionary<string, string> ticket_Car = new Dictionary<string, string>();
+        private HashSet<string> usedTickets = new HashSet<string>();
         public string ParkCar(string car)
         {
             var ticket = $"T{car}";
@@ -25,7 +26,13 @@ namespace ParkingLotPlace
                 throw new ArgumentException("Invalid ticket number.");
             }
 
+            if (usedTickets.Contains(ticket))
+            {
+                throw new InvalidOperationException("Ticket has already been used.");
+            }
+
             string car = ticket_Car[ticket];
+            usedTickets.Add(ticket);
             return car;
         }
     }

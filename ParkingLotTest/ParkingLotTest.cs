@@ -1,5 +1,6 @@
 ﻿using ParkingLotPlace;
 using System;
+using System.Runtime.ConstrainedExecution;
 using Xunit;
 
 namespace ParkingLotTest
@@ -48,6 +49,16 @@ namespace ParkingLotTest
             string ticket = string.Empty;
             //then
             Assert.Throws<ArgumentException>(() => parkinglot.FetchCar(ticket));
+        }
+
+        [Fact]
+        public void Should_throw_exception_when_FetchCar_Given_used_ticket()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket = parkingLot.ParkCar("Benz");
+            parkingLot.FetchCar(ticket);
+
+            Assert.Throws<InvalidOperationException>(() => parkingLot.FetchCar(ticket));
         }
     }
 }
