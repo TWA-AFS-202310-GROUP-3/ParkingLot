@@ -116,5 +116,20 @@ namespace ParkingLotTest
 
             Assert.Equal(1, parkingLot2.CurrentCapacity);
         }
+
+        [Fact]
+        public void Should_Fetch_Correct_Car_Given_ParkingBoy_Manage_Multiple_ParkingLot()
+        {
+            ParkingLot parkingLot1 = new ParkingLot(1);
+            ParkingLot parkingLot2 = new ParkingLot();
+            string ticketA = parkingLot1.Park("aCar");
+            string ticketB = parkingLot2.Park("bCar");
+
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
+            parkingBoy.AddManageParkingLot(parkingLot2);
+
+            Assert.Equal("aCar", parkingBoy.Fetch(ticketA));
+            Assert.Equal("bCar", parkingBoy.Fetch(ticketB));
+        }
     }
 }
