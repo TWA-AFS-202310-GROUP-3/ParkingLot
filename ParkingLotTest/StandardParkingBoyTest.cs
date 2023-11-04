@@ -87,12 +87,8 @@ namespace ParkingLotTest
         public void Should_return_NoPositionException_when_capacity_is_full()
         {
             // Given
-            ParkingLot parkingLot = new ParkingLot();
-            for (int i = 0; i < 10; i++)
-            {
-                parkingLot.Park("car" + i.ToString());
-            }
-
+            ParkingLot parkingLot = new ParkingLot(1);
+            parkingLot.Park("car1");
             StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
             // When// Then
             NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => standardParkingBoy.Park("car"));

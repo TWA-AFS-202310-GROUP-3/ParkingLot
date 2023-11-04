@@ -12,6 +12,15 @@ namespace ParkingLotPractice
         private string car;
         private int maxcapacity = 10;
         private Dictionary<string, string> ticket2Car = new Dictionary<string, string>();
+        public ParkingLot()
+        {
+        }
+
+        public ParkingLot(int maxcapacity)
+        {
+            this.maxcapacity = maxcapacity;
+        }
+
         public string Fetch(string ticket)
         {
             if (!ticket2Car.ContainsKey(ticket))
