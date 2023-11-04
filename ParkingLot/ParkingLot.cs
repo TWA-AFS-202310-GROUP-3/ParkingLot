@@ -12,10 +12,12 @@ namespace ParkingLotPlace
         private Dictionary<string, string> ticket_Car = new Dictionary<string, string>();
         private HashSet<string> usedTickets = new HashSet<string>();
         private int capacity;
+        private int parkedCarsCount;
 
         public ParkingLot(int capacity = 10)
         {
             this.capacity = capacity;
+            this.parkedCarsCount = 0;
         }
 
         public string ParkCar(string car)
@@ -27,6 +29,7 @@ namespace ParkingLotPlace
 
             var ticket = $"T{car}";
             ticket_Car[ticket] = car;
+            parkedCarsCount++;
             return ticket;
         }
 
@@ -45,6 +48,11 @@ namespace ParkingLotPlace
             string car = ticket_Car[ticket];
             usedTickets.Add(ticket);
             return car;
+        }
+
+        public int GetAvailablePositions()
+        {
+            return capacity - parkedCarsCount;
         }
     }
 }
