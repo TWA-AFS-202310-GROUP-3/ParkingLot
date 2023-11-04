@@ -8,12 +8,23 @@ namespace ParkingLot
 {
     public class ParkingBoy
     {
-        private List<ParkingLotPlace> parkinglot = new List<ParkingLotPlace>();
+        private ParkingLotPlace parkinglot;
 
-        public string FetchCar()
+        public ParkingBoy(ParkingLotPlace parkingLot)
         {
-            var car = parkinglot[1].FetchCar("car");
+            this.parkinglot = parkingLot;
+        }
+
+        public string FetchCar(string ticket)
+        {
+            var car = parkinglot.FetchCar(ticket);
             return car;
+        }
+
+        public string ParkCar(string car)
+        {
+            var ticket = parkinglot.ParkCar(car);
+            return ticket;
         }
     }
 }
