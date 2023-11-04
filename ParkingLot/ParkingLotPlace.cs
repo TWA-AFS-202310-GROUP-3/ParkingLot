@@ -4,8 +4,8 @@ namespace ParkingLot
 {
     public class ParkingLotPlace
     {
+        private readonly int capacity = 6;
         private string car = "Benze";
-        private int capacity = 10;
 
         private Dictionary<string, string> ticketToCar = new Dictionary<string, string>();
 
@@ -24,7 +24,11 @@ namespace ParkingLot
 
         public string ParkCar(string car)
         {
-            int car_number = ticketToCar.Count;
+            if (CarNumber() >= this.capacity)
+            {
+                return string.Empty;
+            }
+
             var ticket = $"T_{car}";
             ticketToCar[ticket] = car;
             return ticket;

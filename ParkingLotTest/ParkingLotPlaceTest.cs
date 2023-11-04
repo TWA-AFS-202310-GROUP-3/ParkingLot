@@ -77,5 +77,22 @@ namespace ParkingLotTest
 
             Assert.Equal(expect_car, actual_car);
         }
+
+        [Fact]
+        public void Should_return_no_car_When_fetch_Given_no_parkingSpot()
+        {
+            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche" };
+            ParkingLotPlace parkingLot = new ParkingLotPlace();
+            foreach (var car in cars)
+            {
+                parkingLot.ParkCar(car);
+            }
+
+            var expect_ticket = string.Empty;
+
+            var actual_ticket = parkingLot.ParkCar("Mazda");
+
+            Assert.Equal(expect_ticket, actual_ticket);
+        }
     }
 }
