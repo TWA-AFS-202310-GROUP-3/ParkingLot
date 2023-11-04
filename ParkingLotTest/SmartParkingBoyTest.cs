@@ -11,7 +11,7 @@ namespace ParkingLotTest
     public class SmartParkingBoyTest
     {
         [Fact]
-        public void Should_in_first_parkinglot_when_ParkCar_Given_first_parkinglot_more_empty()
+        public void Should_in_second_parkinglot_when_ParkCar_Given_second_parkinglot_more_empty()
         {
             ParkingLot parkinglot1 = new ParkingLot(5);
             ParkingLot parkinglot2 = new ParkingLot(8);
