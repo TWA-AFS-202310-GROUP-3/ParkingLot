@@ -289,32 +289,34 @@ namespace ParkingLotTest
         public void Should_return_ticket_from_parkingLot_has_most_freeParkingSpot_When_smartParkingBoy_park_Given_three_parkingLot_with_multiple_parkCar_fetchCar_operations()
         {
             List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
+            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche", "Honda", "Bentley", "GTR", "911", "LiXiang", "Bieke" };
             ParkingLotPlace parkingLotOne = new ParkingLotPlace();
-            string[] carsOne = { "Benze", "BMW", "GTR", "WuLing", "Porsche", "Mazda" };
-            foreach (var car in carsOne)
-            {
-                parkingLotOne.ParkCar(car);
-            }
-
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             ParkingLotPlace parkingLotThree = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
             parkingLotPlaces.Add(parkingLotThree);
-            ParkingBoyBase parkingBoy = new SmartParkingBoy(parkingLotPlaces);
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLotPlaces);
 
-            parkingBoy.FetchCar("T_Benze");
-            parkingBoy.ParkCar("Benze");
-            parkingBoy.FetchCar("T_BMW");
-            parkingBoy.ParkCar("BMW");
-            parkingBoy.FetchCar("T_GTR");
-            parkingBoy.ParkCar("GTR");
-            parkingBoy.FetchCar("T_Porsche");
-            parkingBoy.ParkCar("Porsche");
+            for (int i = 0; i < cars.Length; i++)
+            {
+                parkingBoy.ParkCar(cars[i]);
+                if (i % 3 == 2)
+                {
+                    Assert.Equal(parkingLotOne.TicketToCar.Count, parkingLotThree.TicketToCar.Count);
+                    Assert.Equal(parkingLotOne.TicketToCar.Count, parkingLotTwo.TicketToCar.Count);
+                }
 
-            Assert.True(parkingLotOne.TicketToCar.Count == 2);
-            Assert.True(parkingLotTwo.TicketToCar.Count == 2);
-            Assert.True(parkingLotThree.TicketToCar.Count == 2);
+                if (i > 2)
+                {
+                    parkingBoy.FetchCar("T_Benze");
+                    parkingBoy.FetchCar("T_BMW");
+                    parkingBoy.FetchCar("T_Rolls-Royce");
+                    parkingBoy.ParkCar("Benze");
+                    parkingBoy.ParkCar("BMW");
+                    parkingBoy.ParkCar("Rolls-Royce");
+                }
+            }
         }
 
         [Fact]

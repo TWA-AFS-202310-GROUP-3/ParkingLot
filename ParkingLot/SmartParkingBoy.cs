@@ -31,6 +31,7 @@ namespace ParkingLot
         {
             TicketCheckBeforeFetch(ticket);
             ParkingLotSetterGetter = ticketToParkingLot[ticket];
+            ticketToParkingLot.Remove(ticket);
             var car = base.FetchCar(ticket);
             freeSpotsNumberMaxnHeap.DecreaseKey(ParkingLotSetterGetter);
 

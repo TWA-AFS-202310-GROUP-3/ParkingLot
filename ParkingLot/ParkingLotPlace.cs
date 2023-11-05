@@ -6,7 +6,6 @@ namespace ParkingLot
     public class ParkingLotPlace : IComparable<ParkingLotPlace>
     {
         private readonly int capacity = 6;
-        private string car = "Benze";
 
         private Dictionary<string, string> ticketToCar = new Dictionary<string, string>();
 

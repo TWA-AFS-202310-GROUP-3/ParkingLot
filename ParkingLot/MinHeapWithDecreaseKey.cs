@@ -5,18 +5,18 @@ public class MinHeap<T>
     where T : IComparable<T>
 {
     private List<T> heap;
-    private Dictionary<T, int> elementIndices;
+    private Dictionary<T, int> indexMap;
 
     public MinHeap()
     {
         heap = new List<T>();
-        elementIndices = new Dictionary<T, int>();
+        indexMap = new Dictionary<T, int>();
     }
 
     public MinHeap(List<T> tList)
     {
         heap = new List<T>();
-        elementIndices = new Dictionary<T, int>();
+        indexMap = new Dictionary<T, int>();
         foreach (T element in tList)
         {
             Push(element);
@@ -28,7 +28,7 @@ public class MinHeap<T>
     public void Push(T item)
     {
         heap.Add(item);
-        elementIndices[item] = Count - 1;
+        indexMap[item] = Count - 1;
         HeapifyUp(Count - 1);
     }
 
@@ -40,18 +40,23 @@ public class MinHeap<T>
         }
 
         T min = heap[0];
-        RemoveElement(min);
+        indexMap.Remove(min);
+        heap[0] = heap[Count - 1];
+        indexMap[heap[0]] = 0;
+        heap.RemoveAt(Count - 1);
+        HeapifyDown(0);
+
         return min;
     }
 
-    public void DecreaseKey(T element)
+    public void DecreaseKey(T item)
     {
-        if (!elementIndices.ContainsKey(element))
+        if (!indexMap.ContainsKey(item))
         {
-            throw new ArgumentException("Element not found in the heap");
+            throw new KeyNotFoundException("Item not found in the heap");
         }
 
-        int index = elementIndices[element];
+        int index = indexMap[item];
         HeapifyUp(index);
     }
 
@@ -70,34 +75,36 @@ public class MinHeap<T>
         }
     }
 
+    private void HeapifyDown(int index)
+    {
+        int leftChild = 2 * index + 1;
+        int rightChild = 2 * index + 2;
+        int smallest = index;
+
+        if (leftChild < Count && heap[leftChild].CompareTo(heap[smallest]) < 0)
+        {
+            smallest = leftChild;
+        }
+
+        if (rightChild < Count && heap[rightChild].CompareTo(heap[smallest]) < 0)
+        {
+            smallest = rightChild;
+        }
+
+        if (smallest != index)
+        {
+            Swap(index, smallest);
+            HeapifyDown(smallest);
+        }
+    }
+
     private void Swap(int a, int b)
     {
         T temp = heap[a];
         heap[a] = heap[b];
         heap[b] = temp;
-        elementIndices[heap[a]] = a;
-        elementIndices[heap[b]] = b;
-    }
 
-    private void RemoveElement(T element)
-    {
-        if (!elementIndices.ContainsKey(element))
-        {
-            return;
-        }
-
-        int indexToRemove = elementIndices[element];
-        int lastIndex = Count - 1;
-        if (indexToRemove != lastIndex)
-        {
-            Swap(indexToRemove, lastIndex);
-        }
-
-        heap.RemoveAt(lastIndex);
-        elementIndices.Remove(element);
-        if (indexToRemove < lastIndex)
-        {
-            HeapifyUp(indexToRemove);
-        }
+        indexMap[heap[a]] = a;
+        indexMap[heap[b]] = b;
     }
 }
