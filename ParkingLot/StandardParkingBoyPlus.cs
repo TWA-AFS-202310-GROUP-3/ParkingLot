@@ -22,6 +22,7 @@ namespace ParkingLot
 
         public override string FetchCar(string ticket)
         {
+            TicketCheckBeforeFetch(ticket);
             int parkingLotIndex = TellParkingLotIndexCarParked(ticket);
             ParkingLotSetterGetter = this.parkingLotPlaces[parkingLotIndex];
             if (parkingLotIndex < parkingLotToBeUsed)
@@ -79,6 +80,14 @@ namespace ParkingLot
             }
 
             return firstAvailableParkingLotIndex;
+        }
+
+        private void TicketCheckBeforeFetch(string ticket)
+        {
+            if (!this.ticketToParkingLotIndex.ContainsKey(ticket))
+            {
+                throw new WrongException("Unrecognized parking ticket.");
+            }
         }
     }
 }

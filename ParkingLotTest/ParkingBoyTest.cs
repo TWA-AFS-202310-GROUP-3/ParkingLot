@@ -166,5 +166,28 @@ namespace ParkingLotTest
             Assert.Equal(expect_car1, actual_car1);
             Assert.Equal(expect_car2, actual_car2);
         }
+
+        [Fact]
+        public void Should_throw_unrecognized_exception_When_parkingboyPlus_fetch_Given_wrong_ticket()
+        {
+            var expect_msg = "Unrecognized parking ticket.";
+            var mazda_ticket = "T_Mazda";
+            List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
+            ParkingLotPlace parkingLotOne = new ParkingLotPlace();
+            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche" };
+            foreach (var car in cars)
+            {
+                parkingLotOne.ParkCar(car);
+            }
+
+            ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
+            parkingLotPlaces.Add(parkingLotOne);
+            parkingLotPlaces.Add(parkingLotTwo);
+            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+
+            WrongException acturl_wrong_msg = Assert.Throws<WrongException>(() => parkingBoy.FetchCar("Mazda"));
+
+            Assert.Equal(expect_msg, acturl_wrong_msg.Message);
+        }
     }
 }
