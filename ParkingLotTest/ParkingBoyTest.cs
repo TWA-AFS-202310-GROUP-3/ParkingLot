@@ -315,23 +315,24 @@ namespace ParkingLotTest
             Assert.Equal(expect_car, actual_car);
         }
 
- /*       [Fact]
-        public void Should_throw_unrecognized_exception_When_parkingboyPlus_fetch_Given_wrong_ticket()
+       [Fact]
+        public void Should_throw_unrecognized_exception_When_smartparkingboyPlus_fetch_Given_wrong_ticket()
         {
             var expect_msg = "Unrecognized parking ticket.";
             var mazda_ticket = "T_Mazda";
+            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche", "Honda", "Bentley", "GTR", "911", "LiXiang" };
             List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
             ParkingLotPlace parkingLotOne = new ParkingLotPlace();
-            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche" };
-            foreach (var car in cars)
-            {
-                parkingLotOne.ParkCar(car);
-            }
-
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
+            ParkingLotPlace parkingLotThree = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            parkingLotPlaces.Add(parkingLotThree);
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLotPlaces);
+            foreach (var car in cars)
+            {
+                parkingBoy.ParkCar(car);
+            }
 
             WrongException acturl_wrong_msg = Assert.Throws<WrongException>(() => parkingBoy.FetchCar(mazda_ticket));
 
@@ -339,7 +340,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_throw_unrecognized_exception_When_parkingboyPlus_fetch_Given_used_ticket()
+        public void Should_throw_unrecognized_exception_When_smartparkingboy_fetch_Given_used_ticket()
         {
             var expect_msg = "Unrecognized parking ticket.";
             var benze_ticket = "T_Benze";
@@ -348,7 +349,7 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLotPlaces);
             string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche", "Mazda" };
             foreach (var car in cars)
             {
@@ -362,7 +363,7 @@ namespace ParkingLotTest
             Assert.Equal(expect_msg, acturl_wrong_msg.Message);
         }
 
-        [Fact]
+/*        [Fact]
         public void Should_throw_noPosition_exception_When_parkingboyPlus_fetch_Given_no_parkingSpot_available()
         {
             var expect_msg = "No available position.";

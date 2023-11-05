@@ -29,12 +29,20 @@ namespace ParkingLot
 
         public override string FetchCar(string ticket)
         {
-            // TicketCheckBeforeFetch(ticket);
+            TicketCheckBeforeFetch(ticket);
             ParkingLotSetterGetter = ticketToParkingLot[ticket];
             var car = base.FetchCar(ticket);
             freeSpotsNumberMaxnHeap.DecreaseKey(ParkingLotSetterGetter);
 
             return car;
+        }
+
+        private void TicketCheckBeforeFetch(string ticket)
+        {
+            if (!this.ticketToParkingLot.ContainsKey(ticket))
+            {
+                throw new WrongException("Unrecognized parking ticket.");
+            }
         }
     }
 }
