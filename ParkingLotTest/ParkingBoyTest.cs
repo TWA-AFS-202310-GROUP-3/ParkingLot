@@ -213,5 +213,27 @@ namespace ParkingLotTest
 
             Assert.Equal(expect_msg, acturl_wrong_msg.Message);
         }
+
+        [Fact]
+        public void Should_throw_noPosition_exception_When_parkingboyPlus_fetch_Given_no_parkingSpot_available()
+        {
+            var expect_msg = "No available position.";
+            var carToPark = "WuLing";
+            List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
+            ParkingLotPlace parkingLotOne = new ParkingLotPlace();
+            ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
+            parkingLotPlaces.Add(parkingLotOne);
+            parkingLotPlaces.Add(parkingLotTwo);
+            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche", "Mazda", "Honda", "Bentley", "GTR", "911", "LiXiang" };
+            foreach (var car in cars)
+            {
+                parkingBoy.ParkCar(car);
+            }
+
+            WrongException acturl_wrong_msg = Assert.Throws<WrongException>(() => parkingBoy.ParkCar(carToPark));
+
+            Assert.Equal(expect_msg, acturl_wrong_msg.Message);
+        }
     }
 }
