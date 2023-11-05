@@ -8,20 +8,33 @@ namespace ParkingLot
 {
     public class SmartParkingBoy : ParkingBoyBase
     {
-        private MinHeap<ParkingLotPlace> carNumberMinHeap;
+        private MinHeap<ParkingLotPlace> freeSpotsNumberMaxnHeap;
+        private Dictionary<string, ParkingLotPlace> ticketToParkingLot;
 
         public SmartParkingBoy(List<ParkingLotPlace> parkingLotPlaces)
         {
-            carNumberMinHeap = new MinHeap<ParkingLotPlace>(parkingLotPlaces);
+            freeSpotsNumberMaxnHeap = new MinHeap<ParkingLotPlace>(parkingLotPlaces);
+            ticketToParkingLot = new Dictionary<string, ParkingLotPlace>();
         }
 
         public override string ParkCar(string car)
         {
-            ParkingLotSetterGetter = carNumberMinHeap.Pop();
+            ParkingLotSetterGetter = freeSpotsNumberMaxnHeap.Pop();
             string ticket = base.ParkCar(car);
-            carNumberMinHeap.Push(ParkingLotSetterGetter);
+            ticketToParkingLot.Add(ticket, ParkingLotSetterGetter);
+            freeSpotsNumberMaxnHeap.Push(ParkingLotSetterGetter);
 
             return ticket;
+        }
+
+        public override string FetchCar(string ticket)
+        {
+            // TicketCheckBeforeFetch(ticket);
+            ParkingLotSetterGetter = ticketToParkingLot[ticket];
+            var car = base.FetchCar(ticket);
+            freeSpotsNumberMaxnHeap.DecreaseKey(ParkingLotSetterGetter);
+
+            return car;
         }
     }
 }

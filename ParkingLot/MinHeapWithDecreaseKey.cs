@@ -44,22 +44,14 @@ public class MinHeap<T>
         return min;
     }
 
-    public void DecreaseKey(T element, T newValue)
+    public void DecreaseKey(T element)
     {
         if (!elementIndices.ContainsKey(element))
         {
             throw new ArgumentException("Element not found in the heap");
         }
 
-        if (newValue.CompareTo(element) > 0)
-        {
-            throw new ArgumentException("New value is greater than the current value");
-        }
-
         int index = elementIndices[element];
-        heap[index] = newValue;
-        elementIndices.Remove(element);
-        elementIndices[newValue] = index;
         HeapifyUp(index);
     }
 
