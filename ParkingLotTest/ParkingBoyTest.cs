@@ -185,7 +185,7 @@ namespace ParkingLotTest
             parkingLotPlaces.Add(parkingLotTwo);
             StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
 
-            WrongException acturl_wrong_msg = Assert.Throws<WrongException>(() => parkingBoy.FetchCar("Mazda"));
+            WrongException acturl_wrong_msg = Assert.Throws<WrongException>(() => parkingBoy.FetchCar(mazda_ticket));
 
             Assert.Equal(expect_msg, acturl_wrong_msg.Message);
         }
