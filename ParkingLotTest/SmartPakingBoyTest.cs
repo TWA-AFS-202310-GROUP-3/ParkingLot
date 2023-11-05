@@ -1,6 +1,7 @@
 ﻿using ParkingLotProj.ErrorHandling;
 using ParkingLotProj;
 using Xunit;
+using ParkingLotProj.ParkingStrategy;
 
 namespace ParkingLotTest
 {
@@ -10,7 +11,8 @@ namespace ParkingLotTest
         public void Should_Get_Same_Car_When_Fetch_By_Ticket()
         {
             ParkingLot parkingLot = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
 
             string ticket = parkingBoy.Park("car");
             string car = parkingBoy.Fetch(ticket);
@@ -24,7 +26,8 @@ namespace ParkingLotTest
             string car1 = "car1";
             string car2 = "car2";
             ParkingLot parkingLot = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
             string ticket1 = parkingBoy.Park(car1);
             string ticket2 = parkingBoy.Park(car2);
 
@@ -39,7 +42,8 @@ namespace ParkingLotTest
         public void Should_Not_Return_Car_When_Fetch_With_Wrong_Ticket()
         {
             ParkingLot parkingLot = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
             string ticket1 = parkingBoy.Park("car1");
 
             InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingBoy.Fetch("wrongTicketId"));
@@ -50,7 +54,8 @@ namespace ParkingLotTest
         public void Should_Not_Return_Car_When_Fetch_With_Used_Ticket()
         {
             ParkingLot parkingLot = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
             string ticket1 = parkingBoy.Park("car1");
 
             string actualCar1 = parkingBoy.Fetch(ticket1);
@@ -63,7 +68,8 @@ namespace ParkingLotTest
         public void Should_Not_Allow_Parking_When_ParkingLot_Full()
         {
             ParkingLot parkingLot = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
             for (int i = 0; i < 10; i++)
             {
                 parkingBoy.Park($"{i}");
@@ -77,7 +83,8 @@ namespace ParkingLotTest
         public void Should_Not_Allow_Parking_When_Park_a_Parked_Car()
         {
             ParkingLot parkingLot = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
 
             string ticket1 = parkingBoy.Park("car1");
             string actualResult = parkingBoy.Park("car1");
@@ -90,8 +97,9 @@ namespace ParkingLotTest
         {
             ParkingLot parkingLot1 = new ParkingLot();
             ParkingLot parkingLot2 = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
 
             string ticket1 = parkingBoy.Park("car1");
 
@@ -104,8 +112,9 @@ namespace ParkingLotTest
             ParkingLot parkingLot1 = new ParkingLot(2);
             ParkingLot parkingLot2 = new ParkingLot(2);
             parkingLot1.Park("aCar");
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
 
             string ticket1 = parkingBoy.Park("car1");
 
@@ -122,6 +131,7 @@ namespace ParkingLotTest
 
             ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
 
             Assert.Equal("aCar", parkingBoy.Fetch(ticketA));
             Assert.Equal("bCar", parkingBoy.Fetch(ticketB));
@@ -132,8 +142,9 @@ namespace ParkingLotTest
         {
             ParkingLot parkingLot1 = new ParkingLot(1);
             ParkingLot parkingLot2 = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
             parkingBoy.Park("car1");
 
             InvalidTicketException exception = Assert.Throws<InvalidTicketException>(() => parkingBoy.Fetch("wrongTicketId"));
@@ -145,8 +156,9 @@ namespace ParkingLotTest
         {
             ParkingLot parkingLot1 = new ParkingLot(1);
             ParkingLot parkingLot2 = new ParkingLot();
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
             string ticket = parkingBoy.Park("car1");
 
             parkingBoy.Fetch(ticket);
@@ -160,8 +172,9 @@ namespace ParkingLotTest
         {
             ParkingLot parkingLot1 = new ParkingLot(1);
             ParkingLot parkingLot2 = new ParkingLot(1);
-            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
             parkingBoy.AddManageParkingLot(parkingLot2);
+            parkingBoy.SetParkingStrategy(new SmartStrategy());
 
             parkingBoy.Park("car1");
             parkingBoy.Park("car2");
