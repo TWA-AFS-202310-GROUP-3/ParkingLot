@@ -15,7 +15,7 @@ namespace ParkingLotSystem
         {
             if (ticketToCar.Count >= parkingLotCapacity)
             {
-                throw new FullParkingSlotException("the parkinglot is full!");
+                throw new FullParkingSlotException("No available position.");
             }
 
             string ticketNumber = $"T-{carNumber}";
@@ -28,12 +28,12 @@ namespace ParkingLotSystem
         {
             if (ticketNumber == string.Empty)
             {
-                throw new EmptyTicketException("ticket is empty!");
+                throw new EmptyTicketException("Parking ticket is empty.");
             }
 
             if (!ticketToCar.ContainsKey(ticketNumber))
             {
-                throw new NotFoundTicketException("ticket number not found!");
+                throw new NotFoundTicketException("Unrecognized parking ticket.");
             }
 
             string fetchedCarNumber = ticketToCar[ticketNumber];
