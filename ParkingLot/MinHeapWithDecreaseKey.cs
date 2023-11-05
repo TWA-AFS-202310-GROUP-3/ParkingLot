@@ -17,7 +17,7 @@ public class MinHeap<T>
     {
         heap = new List<T>();
         elementIndices = new Dictionary<T, int>();
-        foreach (T element in heap)
+        foreach (T element in tList)
         {
             Push(element);
         }

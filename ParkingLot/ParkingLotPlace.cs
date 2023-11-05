@@ -61,13 +61,18 @@ namespace ParkingLot
             return CarNumber() < this.capacity;
         }
 
+        public int FreeParkingSpots()
+        {
+            return this.capacity - CarNumber();
+        }
+
         public int CompareTo(ParkingLotPlace other)
         {
-            if (CarNumber() < other.CarNumber())
+            if (FreeParkingSpots() > other.FreeParkingSpots())
             {
                 return -1;
             }
-            else if (CarNumber() > other.CarNumber())
+            else if (FreeParkingSpots() < other.FreeParkingSpots())
             {
                 return 1;
             }

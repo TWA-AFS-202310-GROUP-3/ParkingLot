@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -248,37 +249,43 @@ namespace ParkingLotTest
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
             parkingLotPlaces.Add(parkingLotThree);
-            ParkingBoyBase parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingBoyBase parkingBoy = new SmartParkingBoy(parkingLotPlaces);
 
             var actual_ticket = parkingBoy.ParkCar(car);
 
             Assert.Equal(expect_ticket, actual_ticket);
         }
 
-/*
         [Fact]
-        public void Should_return_ticket_from_second_parkinglot_When_parkingboyPlus_park_Given_second_parkingLot_available_first_not()
+        public void Should_return_ticket_from_parkingLot_has_most_freeParkingSpot_When_smartParkingBoy_park_Given_three_parkingLot()
         {
-            var mazda = "Mazda";
             List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
             ParkingLotPlace parkingLotOne = new ParkingLotPlace();
-            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche" };
-            foreach (var car in cars)
+            string[] carsOne = { "Benze", "BMW" };
+            foreach (var car in carsOne)
             {
                 parkingLotOne.ParkCar(car);
             }
 
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
+            string[] carsTwo = { "Mazda" };
+            foreach (var car in carsTwo)
+            {
+                parkingLotTwo.ParkCar(car);
+            }
+
+            ParkingLotPlace parkingLotThree = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            parkingLotPlaces.Add(parkingLotThree);
+            ParkingBoyBase parkingBoy = new SmartParkingBoy(parkingLotPlaces);
 
-            var ticket = parkingBoy.ParkCar(mazda);
+            var actual_ticket = parkingBoy.ParkCar("GTR");
 
-            Assert.Equal(1, parkingBoy.TellParkingLotIndexCarParked(ticket));
+            Assert.True(parkingLotThree.TicketToCar.ContainsKey("T_GTR"));
         }
 
-        [Fact]
+ /*       [Fact]
         public void Should_return_right_cars_from_different_parkingLot_When_parkingboyPlus_fetch_car_Given_right_ticket_of_different_parkingLot()
         {
             var expect_car1 = "Benze";
