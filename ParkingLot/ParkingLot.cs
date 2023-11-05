@@ -10,6 +10,7 @@ namespace ParkingLotSystem
     {
         private int parkingLotCapacity = 10;
         private Dictionary<string, string> ticketToCar = new Dictionary<string, string>();
+        private int parkedCarsNumber = 0;
 
         public string ParkACar(string carNumber)
         {
@@ -20,6 +21,7 @@ namespace ParkingLotSystem
 
             string ticketNumber = $"T-{carNumber}";
             ticketToCar.Add(ticketNumber, carNumber);
+            parkedCarsNumber++;
 
             return ticketNumber;
         }
@@ -39,6 +41,11 @@ namespace ParkingLotSystem
             string fetchedCarNumber = ticketToCar[ticketNumber];
             ticketToCar.Remove(ticketNumber);
             return fetchedCarNumber;
+        }
+
+        public int GetAvailablePositions()
+        {
+            return parkingLotCapacity - parkedCarsNumber;
         }
     }
 }
