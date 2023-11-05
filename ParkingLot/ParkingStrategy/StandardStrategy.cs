@@ -7,15 +7,8 @@ namespace ParkingLotProj.ParkingStrategy
     {
         public string Park(string carId, List<ParkingLot> parkingLots)
         {
-            foreach (ParkingLot parkingLot in parkingLots)
-            {
-                if (!parkingLot.IsFull())
-                {
-                    return parkingLot.Park(carId);
-                }
-            }
-
-            throw new OutOfCapacityException("No available position.");
+            string ticket = parkingLots.Find(parkingLot => !parkingLot.IsFull())?.Park(carId);
+            return ticket ?? throw new OutOfCapacityException("No available position.");
         }
     }
 }

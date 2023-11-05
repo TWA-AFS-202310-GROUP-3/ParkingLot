@@ -35,20 +35,23 @@ namespace ParkingLotProj
 
         public string Fetch(string ticketId)
         {
-            foreach (ParkingLot parkingLot in parkingLots)
-            {
-                if (parkingLot.IsContainTicket(ticketId))
-                {
-                    return parkingLot.Fetch(ticketId);
-                }
-            }
-
-            throw new InvalidTicketException("Unrecognized parking ticket.");
+            string car = parkingLots.Find(parkingLot => parkingLot.IsContainTicket(ticketId))?.Fetch(ticketId);
+            return car ?? throw new InvalidTicketException("Unrecognized parking ticket.");
         }
 
         public string Park(string carId)
         {
+            if (IsCarParked(carId))
+            {
+                return null;
+            }
+
             return this.parkingStrategy.Park(carId, this.parkingLots);
+        }
+
+        public bool IsCarParked(string carId)
+        {
+            return parkingLots.FindIndex(parkingLot => parkingLot.IsContainCar(carId)) >= 0;
         }
     }
 }

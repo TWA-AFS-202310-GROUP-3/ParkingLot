@@ -62,6 +62,11 @@ namespace ParkingLotProj
             return parkingTicket.ContainsKey(ticketId);
         }
 
+        public bool IsContainCar(string carId)
+        {
+            return parkingTicket.ContainsValue(carId);
+        }
+
         public bool IsFull()
         {
             return currentCapacity >= capacity;
