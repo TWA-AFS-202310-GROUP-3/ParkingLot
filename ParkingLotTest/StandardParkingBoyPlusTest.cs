@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ParkingLotTest
 {
-    public class ParkingBoyWithMultipleParkingLotTest
+    public class StandardParkingBoyPlusTest
     {
 
         [Fact]
@@ -21,7 +21,7 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            ParkingBoyBase parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingBoyBase parkingBoy = new ParkingLot.StandardParkingBoyPlus(parkingLotPlaces);
 
             var actual_ticket = parkingBoy.ParkCar(car);
 
@@ -43,7 +43,7 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingLot.StandardParkingBoyPlus parkingBoy = new ParkingLot.StandardParkingBoyPlus(parkingLotPlaces);
 
             var ticket = parkingBoy.ParkCar(mazda);
 
@@ -64,7 +64,7 @@ namespace ParkingLotTest
             List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            ParkingBoyBase parkingboy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingBoyBase parkingboy = new ParkingLot.StandardParkingBoyPlus(parkingLotPlaces);
 
             var actual_car1 = parkingboy.FetchCar(ticket1);
             var actual_car2 = parkingboy.FetchCar(ticket2);
@@ -89,7 +89,7 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingLot.StandardParkingBoyPlus parkingBoy = new ParkingLot.StandardParkingBoyPlus(parkingLotPlaces);
 
             WrongException acturl_wrong_msg = Assert.Throws<WrongException>(() => parkingBoy.FetchCar(mazda_ticket));
 
@@ -106,7 +106,7 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingLot.StandardParkingBoyPlus parkingBoy = new ParkingLot.StandardParkingBoyPlus(parkingLotPlaces);
             string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche", "Mazda" };
             foreach (var car in cars)
             {
@@ -130,7 +130,7 @@ namespace ParkingLotTest
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
             parkingLotPlaces.Add(parkingLotOne);
             parkingLotPlaces.Add(parkingLotTwo);
-            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+            ParkingLot.StandardParkingBoyPlus parkingBoy = new ParkingLot.StandardParkingBoyPlus(parkingLotPlaces);
             string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche", "Mazda", "Honda", "Bentley", "GTR", "911", "LiXiang" };
             foreach (var car in cars)
             {

@@ -22,6 +22,13 @@ namespace ParkingLot
 
         public override string FetchCar(string ticket)
         {
+            FindParkingLotByTicket(ticket);
+
+            return base.FetchCar(ticket);
+        }
+
+        public void FindParkingLotByTicket(string ticket)
+        {
             TicketCheckBeforeFetch(ticket);
             int parkingLotIndex = TellParkingLotIndexCarParked(ticket);
             ParkingLotSetterGetter = this.parkingLotPlaces[parkingLotIndex];
@@ -29,8 +36,6 @@ namespace ParkingLot
             {
                 parkingLotToBeUsed = parkingLotIndex;
             }
-
-            return base.FetchCar(ticket);
         }
 
         public int TellParkingLotIndexCarParked(string ticket)
@@ -39,6 +44,14 @@ namespace ParkingLot
         }
 
         public override string ParkCar(string car)
+        {
+            parkingLotToBeUsed = FindNextAvailableParkingLot();
+            string ticket = base.ParkCar(car);
+            ticketToParkingLotIndex[ticket] = parkingLotToBeUsed;
+            return ticket;
+        }
+
+        private int FindNextAvailableParkingLot()
         {
             int availableParkingLotIndex = parkingLotToBeUsed;
             for (; availableParkingLotIndex < parkingLotPlaces.Count; availableParkingLotIndex++)
@@ -55,10 +68,7 @@ namespace ParkingLot
                 throw new WrongException("No available position.");
             }
 
-            parkingLotToBeUsed = availableParkingLotIndex;
-            string ticket = base.ParkCar(car);
-            ticketToParkingLotIndex[ticket] = availableParkingLotIndex;
-            return ticket;
+            return availableParkingLotIndex;
         }
 
         private int CreateTicketToParkingLotMap(List<ParkingLotPlace> parkingLotPlaces, Dictionary<string, int> ticketToParkingLotIndex)
