@@ -17,10 +17,7 @@ namespace ParkingLot
 
         public string FetchCar(string ticket)
         {
-            if (!ticketToCar.ContainsKey(ticket))
-            {
-                throw new WrongException("Unrecognized parking ticket.");
-            }
+            CheckTicket(ticket);
 
             var car = ticketToCar[ticket];
             ticketToCar.Remove(ticket);
@@ -28,16 +25,29 @@ namespace ParkingLot
             return car;
         }
 
+        public void CheckTicket(string ticket)
+        {
+            if (!ticketToCar.ContainsKey(ticket))
+            {
+                throw new WrongException("Unrecognized parking ticket.");
+            }
+        }
+
         public string ParkCar(string car)
+        {
+            CheckParkingSpot(car);
+
+            var ticket = $"T_{car}";
+            ticketToCar[ticket] = car;
+            return ticket;
+        }
+
+        public void CheckParkingSpot(string car)
         {
             if (!IsParkingLotAvailable())
             {
                 throw new WrongException("No available position.");
             }
-
-            var ticket = $"T_{car}";
-            ticketToCar[ticket] = car;
-            return ticket;
         }
 
         public int CarNumber()
