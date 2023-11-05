@@ -109,7 +109,7 @@ namespace ParkingLotTest
         public void Should_return_ticket_from_first_parkinglot_When_parkingboyPlus_park_Given_first_parkingLot_available()
         {
             var car = "Benze";
-            var expect_ticket = "T_Benze_ParkingLot_0";
+            var expect_ticket = "T_Benze";
             List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
             ParkingLotPlace parkingLotOne = new ParkingLotPlace();
             ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
@@ -120,6 +120,51 @@ namespace ParkingLotTest
             var actual_ticket = parkingBoy.ParkCar(car);
 
             Assert.Equal(expect_ticket, actual_ticket);
+        }
+
+        [Fact]
+        public void Should_return_ticket_from_second_parkinglot_When_parkingboyPlus_park_Given_second_parkingLot_available_first_not()
+        {
+            var mazda = "Mazda";
+            List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
+            ParkingLotPlace parkingLotOne = new ParkingLotPlace();
+            string[] cars = { "Benze", "BMW", "Rolls-Royce", "Tesla", "Lamborghini", "Porsche" };
+            foreach (var car in cars)
+            {
+                parkingLotOne.ParkCar(car);
+            }
+
+            ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
+            parkingLotPlaces.Add(parkingLotOne);
+            parkingLotPlaces.Add(parkingLotTwo);
+            StandardParkingBoyPlus parkingBoy = new StandardParkingBoyPlus(parkingLotPlaces);
+
+            var ticket = parkingBoy.ParkCar(mazda);
+
+            Assert.Equal(1, parkingBoy.TellParkingLotIndexCarParked(ticket));
+        }
+
+        [Fact]
+        public void Should_return_right_cars_from_different_parkingLot_When_parkingboy_fetch_car_Given_right_ticket_of_different_parkingLot()
+        {
+            var expect_car1 = "Benze";
+            var expect_car2 = "BMW";
+            var ticket1 = "T_Benze";
+            var ticket2 = "T_BMW";
+            ParkingLotPlace parkingLotOne = new ParkingLotPlace();
+            ParkingLotPlace parkingLotTwo = new ParkingLotPlace();
+            parkingLotOne.ParkCar(expect_car1);
+            parkingLotTwo.ParkCar(expect_car2);
+            List<ParkingLotPlace> parkingLotPlaces = new List<ParkingLotPlace>();
+            parkingLotPlaces.Add(parkingLotOne);
+            parkingLotPlaces.Add(parkingLotTwo);
+            ParkingBoyBase parkingboy = new StandardParkingBoyPlus(parkingLotPlaces);
+
+            var actual_car1 = parkingboy.FetchCar(ticket1);
+            var actual_car2 = parkingboy.FetchCar(ticket2);
+
+            Assert.Equal(expect_car1, actual_car1);
+            Assert.Equal(expect_car2, actual_car2);
         }
     }
 }

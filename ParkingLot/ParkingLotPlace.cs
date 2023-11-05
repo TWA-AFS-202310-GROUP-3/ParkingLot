@@ -9,6 +9,12 @@ namespace ParkingLot
 
         private Dictionary<string, string> ticketToCar = new Dictionary<string, string>();
 
+        public Dictionary<string, string> TicketToCar
+        {
+            get { return ticketToCar; }
+            set { ticketToCar = value; }
+        }
+
         public string FetchCar(string ticket)
         {
             if (!ticketToCar.ContainsKey(ticket))
@@ -24,7 +30,7 @@ namespace ParkingLot
 
         public string ParkCar(string car)
         {
-            if (CarNumber() >= this.capacity)
+            if (!IsParkingLotAvailable())
             {
                 throw new WrongException("No available position.");
             }
@@ -37,6 +43,11 @@ namespace ParkingLot
         public int CarNumber()
         {
             return ticketToCar.Count;
+        }
+
+        public bool IsParkingLotAvailable()
+        {
+            return CarNumber() < this.capacity;
         }
     }
 }
