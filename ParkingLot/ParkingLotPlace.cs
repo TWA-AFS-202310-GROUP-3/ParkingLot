@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ParkingLot
 {
-    public class ParkingLotPlace
+    public class ParkingLotPlace : IComparable<ParkingLotPlace>
     {
         private readonly int capacity = 6;
         private string car = "Benze";
@@ -58,6 +59,20 @@ namespace ParkingLot
         public bool IsParkingLotAvailable()
         {
             return CarNumber() < this.capacity;
+        }
+
+        public int CompareTo(ParkingLotPlace other)
+        {
+            if (CarNumber() < other.CarNumber())
+            {
+                return -1;
+            }
+            else if (CarNumber() > other.CarNumber())
+            {
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

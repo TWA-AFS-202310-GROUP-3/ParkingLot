@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class MinHeap<T> where T : IComparable<T>
+public class MinHeap<T>
+    where T : IComparable<T>
 {
     private List<T> heap;
     private Dictionary<T, int> elementIndices;
@@ -10,6 +11,16 @@ public class MinHeap<T> where T : IComparable<T>
     {
         heap = new List<T>();
         elementIndices = new Dictionary<T, int>();
+    }
+
+    public MinHeap(List<T> tList)
+    {
+        heap = new List<T>();
+        elementIndices = new Dictionary<T, int>();
+        foreach (T element in heap)
+        {
+            Push(element);
+        }
     }
 
     public int Count => heap.Count;
