@@ -1,4 +1,4 @@
-﻿namespace ParkingLot
+﻿namespace ParkingLotns
 {
     using System;
     public class Class1
