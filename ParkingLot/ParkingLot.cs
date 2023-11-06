@@ -26,9 +26,14 @@ namespace ParkingLotPractice
             return maxcapacity - ticket2Car.Count;
         }
 
+        public bool ContainsTheCarOrNot(string ticket)
+        {
+            return ticket2Car.ContainsKey(ticket);
+        }
+
         public string Fetch(string ticket)
         {
-            if (!ticket2Car.ContainsKey(ticket))
+            if (!ContainsTheCarOrNot(ticket))
             {
                 throw new WrongTicketException("Unrecognized parking ticket. ");
             }

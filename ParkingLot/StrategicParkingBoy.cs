@@ -25,11 +25,10 @@ namespace ParkingLotPractice
         {
             foreach (var parkingLot in parkingLots)
             {
-                try
+                if (parkingLot.ContainsTheCarOrNot(ticket))
                 {
                     return parkingLot.Fetch(ticket);
                 }
-                catch { }
             }
 
             throw new WrongTicketException("Unrecognized parking ticket. ");
