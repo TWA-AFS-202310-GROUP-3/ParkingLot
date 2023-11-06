@@ -4,31 +4,27 @@ namespace ParkingLotPractice
 {
     public interface Strategy
     {
-        public string Park(string car, ParkingLot[] parkingLots);
+        public ParkingLot ChooseParkingLot(ParkingLot[] parkingLots);
     }
 
     public class SmartStrategy : Strategy
     {
-        public string Park(string car, ParkingLot[] parkingLots)
+        public ParkingLot ChooseParkingLot(ParkingLot[] parkingLots)
         {
-            return parkingLots.MaxBy(p => p.GetAvailablePositionAmount()).Park(car);
+            return parkingLots.MaxBy(p => p.GetAvailablePositionAmount());
         }
     }
 
     public class StandardStragegy : Strategy
     {
-        public string Park(string car, ParkingLot[] parkingLots)
+        public ParkingLot ChooseParkingLot(ParkingLot[] parkingLots)
         {
-            foreach (var parkingLot in parkingLots)
+            foreach (var parkingLot in parkingLots.Where(parkingLot => parkingLot.GetAvailablePositionAmount() > 0))
             {
-                try
-                {
-                    return parkingLot.Park(car);
-                }
-                catch { }
+                return parkingLot;
             }
 
-            throw new NoPositionException("No available position. ");
+            return parkingLots[0];
         }
     }
 }

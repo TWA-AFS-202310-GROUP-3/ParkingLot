@@ -18,17 +18,14 @@ namespace ParkingLotPractice
 
         public string Park(string car)
         {
-            return strategy.Park(car, parkingLots);
+            return strategy.ChooseParkingLot(parkingLots).Park(car);
         }
 
         public string Fetch(string ticket)
         {
-            foreach (var parkingLot in parkingLots)
+            foreach (var parkingLot in parkingLots.Where(parkingLot => parkingLot.ContainsTheCarOrNot(ticket)))
             {
-                if (parkingLot.ContainsTheCarOrNot(ticket))
-                {
-                    return parkingLot.Fetch(ticket);
-                }
+                return parkingLot.Fetch(ticket);
             }
 
             throw new WrongTicketException("Unrecognized parking ticket. ");
